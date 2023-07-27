@@ -34,6 +34,5 @@ public class ProjectDaoImpl extends AbstractDao<Long, Project> {
         query.setParameter("name", name);
         return (Project) query.getSingleResult();
     }
-//a
 }
 
