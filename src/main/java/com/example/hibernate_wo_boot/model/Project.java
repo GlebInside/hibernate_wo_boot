@@ -1,6 +1,5 @@
-package com.example.hibernate_wo_boot.project;
+package com.example.hibernate_wo_boot.model;
 
-import com.example.hibernate_wo_boot.employee.Employee;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Objects;
 
 @Data
 @AllArgsConstructor
@@ -25,4 +25,17 @@ public class Project {
     @ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name = "project_id"), inverseJoinColumns = @JoinColumn(name = "employee_id"))
     private List<Employee> employees;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Project project = (Project) o;
+        return projectId.equals(project.projectId) && name.equals(project.name) && employees.equals(project.employees);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(projectId, name, employees);
+    }
 }

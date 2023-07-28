@@ -3,8 +3,10 @@ package com.example.hibernate_wo_boot.config;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -17,15 +19,28 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
+@PropertySource("classpath:application.properties")
 public class Config {
+
+    @Value("${hibernate.connection.driver}")
+    private String driverClass;
+
+    @Value("${hibernate.connection.url}")
+    private String url;
+
+    @Value("${hibernate.connection.username}")
+    private String username;
+
+    @Value("${hibernate.connection.password}")
+    private String password;
 
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource ds = new DriverManagerDataSource();
-        ds.setDriverClassName("org.postgresql.Driver");
-        ds.setUrl("jdbc:postgresql://localhost:5432/aston2");
-        ds.setUsername("postgres");
-        ds.setPassword("1");
+        ds.setDriverClassName(driverClass);
+        ds.setUrl(url);
+        ds.setUsername(username);
+        ds.setPassword(password);
         return ds;
     }
 

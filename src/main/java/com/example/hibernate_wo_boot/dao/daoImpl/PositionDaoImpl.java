@@ -1,6 +1,8 @@
-package com.example.hibernate_wo_boot.position;
+package com.example.hibernate_wo_boot.dao.daoImpl;
 
-import com.example.hibernate_wo_boot.AbstractDao;
+import com.example.hibernate_wo_boot.dao.AbstractDao;
+import com.example.hibernate_wo_boot.dao.PositionDao;
+import com.example.hibernate_wo_boot.model.Position;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
@@ -10,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository("positionDao")
-public class PositionDaoImpl extends AbstractDao<Long, Position> {
+public class PositionDaoImpl extends AbstractDao<Long, Position> implements PositionDao {
 
     public Position findById(Long id) {
         val position = getByKey(id);
@@ -26,13 +28,20 @@ public class PositionDaoImpl extends AbstractDao<Long, Position> {
         return positions;
     }
 
+    @Override
+    public void merge(Long id, Position e) {
+        Position current = findById(id);
+        current.setName(e.getName());
+        persist(current);
+    }
+
     public void save(Position position) {
         persist(position);
     }
 
     public Position findByName(String name) {
-        val query = getSession().createQuery("from Position where name = :name");
+        val query = getSession().createQuery("from Position where name = :name", Position.class);
         query.setParameter("name", name);
-        return (Position) query.getSingleResult();
+        return query.getSingleResult();
     }
 }

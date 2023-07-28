@@ -1,4 +1,4 @@
-package com.example.hibernate_wo_boot.project;
+package com.example.hibernate_wo_boot.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,7 +13,4 @@ public class ProjectShortDto {
 
     private String name;
 
-    public static ProjectShortDto fromModel(Project project) {
-        return ProjectShortDto.builder().name(project.getName()).build();
-    }
 }
