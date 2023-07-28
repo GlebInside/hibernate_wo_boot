@@ -1,9 +1,8 @@
-package com.example.hibernate_wo_boot;
+package com.example.hibernate_wo_boot.dao;
 
 import jakarta.transaction.Transactional;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.criteria.JpaCriteriaQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
@@ -11,7 +10,7 @@ import java.lang.reflect.ParameterizedType;
 
 
 @Transactional
-public abstract class AbstractDao<PK extends Serializable, T> {
+public abstract class AbstractDao<PK extends Serializable, T> implements Dao<T> {
 
     private final Class<T> persistentClass;
 

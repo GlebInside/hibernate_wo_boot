@@ -1,6 +1,8 @@
-package com.example.hibernate_wo_boot.employee;
+package com.example.hibernate_wo_boot.model.dto;
 
-import com.example.hibernate_wo_boot.project.ProjectShortDto;
+import com.example.hibernate_wo_boot.model.Employee;
+import com.example.hibernate_wo_boot.model.dto.ProjectShortDto;
+import com.example.hibernate_wo_boot.model.mapper.ProjectMapper;
 
 import java.util.List;
 
@@ -14,6 +16,6 @@ public class EmployeeDto {
         firstName = employee.getFirstName();
         secondName = employee.getSecondName();
         positionName = employee.getPosition().getName();
-        projects = employee.getProjects().stream().map(ProjectShortDto::fromModel).toList();
+        projects = employee.getProjects().stream().map(ProjectMapper::fromModel).toList();
     }
 }

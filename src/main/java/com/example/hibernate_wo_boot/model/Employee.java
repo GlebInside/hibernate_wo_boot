@@ -1,14 +1,13 @@
-package com.example.hibernate_wo_boot.employee;
+package com.example.hibernate_wo_boot.model;
 
-import com.example.hibernate_wo_boot.position.Position;
-import com.example.hibernate_wo_boot.project.Project;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.LinkedHashSet;
+import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Builder
@@ -32,6 +31,18 @@ public class Employee {
     @JoinTable(name = "projects_employees",
             joinColumns = @JoinColumn(name = "employee_id"),
             inverseJoinColumns = @JoinColumn(name = "project_id"))
-    private Set<Project> projects = new LinkedHashSet<>();
+    private Set<Project> projects = new HashSet<>();
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return employeeId.equals(employee.employeeId) && firstName.equals(employee.firstName) && secondName.equals(employee.secondName) && position.equals(employee.position) && projects.equals(employee.projects);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(employeeId, firstName, secondName, position, projects);
+    }
 }

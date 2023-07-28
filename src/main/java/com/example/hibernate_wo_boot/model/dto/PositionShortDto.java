@@ -1,4 +1,4 @@
-package com.example.hibernate_wo_boot.position;
+package com.example.hibernate_wo_boot.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,9 +9,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PositionShortDto {
     private String name;
-
-    public static PositionShortDto fromModel(Position position) {
-        return new PositionShortDto(position.getName());
-    }
 
 }
